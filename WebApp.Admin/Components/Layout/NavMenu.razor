@@ -1,30 +1,95 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">WebApp.Admin</a>
-    </div>
+﻿<div class="sidebar-brand">
+    <a href="/management/dashboard" class="brand-link">
+        <i class="fa-solid fa-book-open brand-icon"></i>
+        <div class="brand-text">
+            <span class="brand-title">Nhà Sách Văn Hóa</span>
+            <small class="brand-subtitle">Truyền Thống</small>
+        </div>
+    </a>
 </div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+<div class="sidebar-scroll">
+    <nav class="nav-container">
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
+        <div class="nav-section-title">Tổng quan</div>
+        <NavLink class="nav-item-link" href="management/dashboard" Match="NavLinkMatch.All">
+            <i class="fa-solid fa-chart-pie icon-fixed"></i>
+            <span>Bảng Điều Khiển</span>
+        </NavLink>
+
+        <div class="nav-section-title">Quản lý nghiệp vụ</div>
+
+        <div class="nav-item-group">
+            <div class="nav-item-link @(expandedMenu == "orders" ? "expanded" : "")" @onclick='(() => ToggleMenu("orders"))'>
+                <i class="fa-solid fa-box-open icon-fixed"></i>
+                <span>Quản lý Đơn hàng</span>
+                <i class="fa-solid fa-chevron-down ms-auto toggle-icon"></i>
+            </div>
+            <div class="nav-submenu @(expandedMenu == "orders" ? "show" : "")">
+                <NavLink class="submenu-link" href="management/orders/new">Đơn hàng mới</NavLink>
+                <NavLink class="submenu-link" href="management/orders/shipping">Vận chuyển (3PL)</NavLink>
+                <NavLink class="submenu-link" href="management/orders/returns">Đổi trả & Khiếu nại</NavLink>
+            </div>
         </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
+        <div class="nav-item-group">
+            <div class="nav-item-link @(expandedMenu == "products" ? "expanded" : "")" @onclick='(() => ToggleMenu("products"))'>
+                <i class="fa-solid fa-book icon-fixed"></i>
+                <span>Quản lý Sản phẩm</span>
+                <i class="fa-solid fa-chevron-down ms-auto toggle-icon"></i>
+            </div>
+            <div class="nav-submenu @(expandedMenu == "products" ? "show" : "")">
+                <NavLink class="submenu-link" href="management/products/list">Danh sách Sách</NavLink>
+                <NavLink class="submenu-link" href="management/products/categories">Danh mục Sách</NavLink>
+            </div>
         </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
+        <div class="nav-item-group">
+            <div class="nav-item-link @(expandedMenu == "warehouse" ? "expanded" : "")" @onclick='(() => ToggleMenu("warehouse"))'>
+                <i class="fa-solid fa-warehouse icon-fixed"></i>
+                <span>Quản lý Kho hàng</span>
+                <i class="fa-solid fa-chevron-down ms-auto toggle-icon"></i>
+            </div>
+            <div class="nav-submenu @(expandedMenu == "warehouse" ? "show" : "")">
+                <NavLink class="submenu-link" href="management/warehouse/inventory">Tồn kho thực tế</NavLink>
+                <NavLink class="submenu-link" href="management/warehouse/import">Nhập kho</NavLink>
+            </div>
         </div>
+
+        <div class="nav-item-group">
+            <div class="nav-item-link @(expandedMenu == "cskh" ? "expanded" : "")" @onclick='(() => ToggleMenu("cskh"))'>
+                <i class="fa-solid fa-headset icon-fixed"></i>
+                <span>Chăm sóc Khách hàng</span>
+                <i class="fa-solid fa-chevron-down ms-auto toggle-icon"></i>
+            </div>
+            <div class="nav-submenu @(expandedMenu == "cskh" ? "show" : "")">
+                <NavLink class="submenu-link" href="management/cskh/tickets">Hỗ trợ / Ticket</NavLink>
+                <NavLink class="submenu-link" href="management/cskh/reviews">Đánh giá sản phẩm</NavLink>
+            </div>
+        </div>
+
+        <div class="nav-item-group">
+            <div class="nav-item-link @(expandedMenu == "finance" ? "expanded" : "")" @onclick='(() => ToggleMenu("finance"))'>
+                <i class="fa-solid fa-file-invoice-dollar icon-fixed"></i>
+                <span>Tài chính & Kế toán</span>
+                <i class="fa-solid fa-chevron-down ms-auto toggle-icon"></i>
+            </div>
+            <div class="nav-submenu @(expandedMenu == "finance" ? "show" : "")">
+                <NavLink class="submenu-link" href="management/finance/revenue">Doanh thu</NavLink>
+                <NavLink class="submenu-link" href="management/finance/reconciliation">Đối soát COD</NavLink>
+            </div>
+        </div>
+
+        <div class="nav-section-title">Hệ thống</div>
+
+        <NavLink class="nav-item-link" href="management/users">
+            <i class="fa-solid fa-users-gear icon-fixed"></i>
+            <span>Tài khoản & Phân quyền</span>
+        </NavLink>
     </nav>
 </div>
 
+@code {
+    private string expandedMenu = "";
+    private void ToggleMenu(string menuName) => expandedMenu = expandedMenu == menuName ? "" : menuName;
+}

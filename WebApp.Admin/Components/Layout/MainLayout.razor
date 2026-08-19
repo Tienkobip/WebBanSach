@@ -1,23 +1,157 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
+<div class="layout-wrapper @(isMobileMenuOpen ? "menu-open" : "")">
+
+    @if (isMobileMenuOpen)
+    {
+        <div class="mobile-overlay" @onclick="ToggleMobileMenu"></div>
+    }
+
+    <aside class="sidebar">
         <NavMenu />
-    </div>
+    </aside>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+    <div class="main-content">
 
-        <article class="content px-4">
+        <header class="top-header">
+
+            <button class="btn border-0 d-md-none me-2" @onclick="ToggleMobileMenu">
+                <i class="fa-solid fa-bars fs-5"></i>
+            </button>
+
+            <!-- Search Box -->
+            <div class="search-box">
+                <span class="search-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text" class="search-input" placeholder="Tìm mã đơn hàng, Số điện thoại..." />
+            </div>
+
+            <!-- Header Right Section -->
+            <div class="header-right">
+
+                <!-- Notifications Dropdown -->
+                <div class="dropdown-wrapper">
+                    <button class="header-btn" @onclick="ToggleNotifications">
+                        <span class="btn-text">Thông báo</span>
+                        <div class="noti-icon-box">
+                            <i class="fa-regular fa-bell fs-5"></i>
+                            <span class="noti-badge">5</span>
+                        </div>
+                    </button>
+
+                    @if (isNotiOpen)
+                    {
+                        <div class="dropdown-panel noti-dropdown">
+                            <div class="panel-header">
+                                <span>Thông báo mới</span>
+                                <span class="panel-header-badge">5</span>
+                            </div>
+
+                            <div class="noti-list">
+
+                                <!-- Thông báo 1: Đơn hàng mới -->
+                                <div class="noti-item">
+                                    <div class="noti-icon-wrap">
+                                        <i class="fa-solid fa-box"></i>
+                                    </div>
+                                    <div class="noti-content">
+                                        <div class="noti-top">
+                                            <span class="noti-title">Đơn hàng mới chờ duyệt!</span>
+                                            <span class="noti-time">18/08 18:01</span>
+                                        </div>
+                                        <p class="noti-desc">Đơn hàng #VN12345 trị giá 550.000đ vừa được đặt thành công.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Thông báo 2: Cảnh báo hết hàng -->
+                                <div class="noti-item">
+                                    <div class="noti-icon-wrap">
+                                        <i class="fa-solid fa-triangle-exclamation"></i>
+                                    </div>
+                                    <div class="noti-content">
+                                        <div class="noti-top">
+                                            <span class="noti-title">Sản phẩm sắp hết hàng</span>
+                                            <span class="noti-time">18/08 17:00</span>
+                                        </div>
+                                        <p class="noti-desc">Sách "Con Đường Đạt Đến Nhân Sinh Hạnh Phúc" chỉ còn 2 quyển trong kho.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Thông báo 3: Đối soát COD -->
+                                <div class="noti-item">
+                                    <div class="noti-icon-wrap">
+                                        <i class="fa-solid fa-money-bill-transfer"></i>
+                                    </div>
+                                    <div class="noti-content">
+                                        <div class="noti-top">
+                                            <span class="noti-title">Đối soát thành công</span>
+                                            <span class="noti-time">17/08 09:00</span>
+                                        </div>
+                                        <p class="noti-desc">ViettelPost đã chuyển 500.000đ tiền thu hộ COD kỳ 1 vào tài khoản.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Thông báo 4: Nhập hàng mới -->
+                                <div class="noti-item">
+                                    <div class="noti-icon-wrap">
+                                        <i class="fa-solid fa-truck-ramp-box"></i>
+                                    </div>
+                                    <div class="noti-content">
+                                        <div class="noti-top">
+                                            <span class="noti-title">Nhập kho thành công</span>
+                                            <span class="noti-time">16/08 14:30</span>
+                                        </div>
+                                        <p class="noti-desc">Lô hàng 100 cuốn "Truyện Kiều" đã được hoàn tất nhập kho số 1.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="panel-footer">
+                                <a href="#" class="panel-footer-btn">Xem tất cả thông báo</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- User Profile Dropdown -->
+                <div class="dropdown-wrapper">
+                    <button class="profile-btn" @onclick="ToggleProfileDropdown">
+                        <div class="user-info">
+                            <span class="user-name">Quản Trị Viên</span>
+                            <small class="user-role">System Admin</small>
+                        </div>
+                        <img src="https://ui-avatars.com/api/?name=Admin&background=E31837&color=fff" class="user-avatar" alt="Avatar" />
+                        <i class="fa-solid fa-caret-down text-muted fs-6"></i>
+                    </button>
+
+                    @if (isProfileDropdownOpen)
+                    {
+                        <div class="dropdown-panel profile-dropdown">
+                            <a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i> Hồ sơ cá nhân</a>
+                            <a class="dropdown-item" href="#"><i class="fa-solid fa-gear me-2"></i> Cài đặt hệ thống</a>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item text-danger"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i> Đăng xuất</button>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </header>
+
+        <main class="page-content">
             @Body
-        </article>
-    </main>
+        </main>
+    </div>
 </div>
 
-<div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
-</div>
+@code {
+    private bool isProfileDropdownOpen = false;
+    private bool isNotiOpen = false;
+    private bool isMobileMenuOpen = false;
+
+    private void ToggleProfileDropdown() { isProfileDropdownOpen = !isProfileDropdownOpen; isNotiOpen = false; }
+    private void ToggleNotifications() { isNotiOpen = !isNotiOpen; isProfileDropdownOpen = false; }
+    private void ToggleMobileMenu() => isMobileMenuOpen = !isMobileMenuOpen;
+}

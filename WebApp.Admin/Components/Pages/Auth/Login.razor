@@ -1,0 +1,70 @@
+﻿@page "/management/login"
+@using WebApp.Admin.Services.Interfaces
+@using WebApp.Admin.Validation
+
+@inject NavigationManager Navigation
+@inject IAuthClientService AuthService
+@inject IJSRuntime JSRuntime
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="login-header">
+            <h2 class="brand-title">Nhà sách Văn Hóa Truyền Thống</h2>
+            <p class="subtitle">Hệ thống quản trị nhà sách Văn Hóa Truyền Thống</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger">
+                @errorMessage
+            </div>
+        }
+
+        @if (validationErrors != null && validationErrors.Any())
+        {
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach (var err in validationErrors)
+                    {
+                        <li>@err</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <EditForm Model="@loginModel" OnValidSubmit="HandleSubmitAsync" FormName="AdminLoginForm">
+            <FluentValidator/>
+
+            <div class="form-group">
+                <label for="email">Tài khoản / Email</label>
+                <InputText id="email" class="form-control" @bind-Value="loginModel.UsernameOrEmail" placeholder="admin@webbansach.com" />
+                <ValidationMessage For="@(() => loginModel.UsernameOrEmail)" class="validation-message" />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <InputText id="password" type="password" class="form-control" @bind-Value="loginModel.Password" placeholder="••••••••" />
+                <ValidationMessage For="@(() => loginModel.Password)" class="validation-message" />
+            </div>
+
+            <div class="form-remember">
+                <label>
+                    <InputCheckbox @bind-Value="rememberMe" id="GhiNhoDangNhap" /> Ghi nhớ đăng nhập
+                </label>
+                <a href="/management/forgot-password" class="forgot">Quên mật khẩu?</a>
+            </div>
+
+            <button type="submit" class="btn-login" disabled="@isSubmitting">
+                @if (isSubmitting)
+                {
+                    <span class="spinner"></span>
+                    <span>Đang xử lý...</span>
+                }
+                else
+                {
+                    <span>ĐĂNG NHẬP</span>
+                }
+            </button>
+        </EditForm>
+    </div>
+</div>

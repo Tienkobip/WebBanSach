@@ -106,6 +106,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+
 builder.Services.AddControllers();
 
 // Thêm Context vào các request để Service có thể đọc thông tin User
@@ -114,6 +116,8 @@ builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 // Auth Services
 builder.Services.AddScoped<ICustomerAuthService, CustomerAuthService>();
+builder.Services.AddScoped<IAdminAuthService, AdminAuthService>();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 // Thêm Hub để cập nhập các update từ Admin
 builder.Services.AddSignalR();
@@ -140,6 +144,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.MapHub<UpdateBroadcastHub>("/hubs/updates");
 app.Run();

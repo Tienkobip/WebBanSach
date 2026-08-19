@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace WebApp.Admin.Components.Validation
+namespace WebApp.Admin.Validation
 {
     public class FluentValidator : ComponentBase, IDisposable
     {

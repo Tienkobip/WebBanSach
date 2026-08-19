@@ -1,98 +1,432 @@
-.page {
-    position: relative;
+/* ==========================================================================
+   1. BỐ CỤC CHUNG (Base Layout & Containers)
+   ========================================================================== */
+.layout-wrapper {
     display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex: 1;
+    min-height: 100vh;
+    background-color: #f8f9fa;
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    width: 250px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background-color: #ffffff;
+    border-right: 1px solid #dee2e6;
+    z-index: 1030;
+    transition: left 0.3s ease;
 }
 
-.top-row {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
-    height: 3.5rem;
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.top-header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
+.page-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+
+/* ==========================================================================
+   2. Ô TÌM KIẾM (Search Box)
+   ========================================================================== */
+.search-box {
+    display: none;
+    align-items: center;
+    max-width: 380px;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .search-box {
+        display: flex;
+    }
+}
+
+.search-icon {
+    background-color: #f1f3f4;
+    border: 1px solid #ced4da;
+    border-right: none;
+    border-top-left-radius: 50rem;
+    border-bottom-left-radius: 50rem;
+    color: #6c757d;
+    padding: 0.375rem 0.75rem 0.375rem 1rem;
+}
+
+.search-input {
+    background-color: #f1f3f4;
+    border: 1px solid #ced4da;
+    border-left: none;
+    border-top-right-radius: 50rem;
+    border-bottom-right-radius: 50rem;
+    padding: 0.375rem 1rem 0.375rem 0;
+    width: 100%;
+    outline: none;
+}
+
+
+/* ==========================================================================
+   3. CÁC NÚT BẤM HEADER BÊN PHẢI (Header Action Buttons)
+   ========================================================================== */
+.header-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.dropdown-wrapper {
+    position: relative;
     display: flex;
     align-items: center;
 }
 
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        white-space: nowrap;
-        margin-left: 1.5rem;
-        text-decoration: none;
-    }
-
-    .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
-        text-decoration: underline;
-    }
-
-    .top-row ::deep a:first-child {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-@media (max-width: 640.98px) {
-    .top-row {
-        justify-content: space-between;
-    }
-
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        margin-left: 0;
-    }
+/* Nút Chuông Thông Báo */
+.header-btn {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem;
+    color: #6c757d;
+    cursor: pointer;
+    transition: color 0.2s;
 }
 
-@media (min-width: 641px) {
-    .page {
-        flex-direction: row;
-    }
-
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        position: sticky;
-        top: 0;
-    }
-
-    .top-row {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
-
-    .top-row.auth ::deep a:first-child {
-        flex: 1;
-        text-align: right;
-        width: 0;
-    }
-
-    .top-row, article {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
-    }
+.header-btn:hover {
+    color: #E31837;
 }
 
-#blazor-error-ui {
-    color-scheme: light only;
-    background: lightyellow;
-    bottom: 0;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
+.btn-text {
     display: none;
-    left: 0;
-    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
+    font-weight: 500;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
+@media (min-width: 768px) {
+    .btn-text {
+        display: block;
     }
+}
+
+.noti-icon-box {
+    position: relative;
+}
+
+.noti-badge {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transform: translate(-50%, -50%);
+    background-color: #dc3545;
+    color: #ffffff;
+    font-size: 0.65rem;
+    padding: 0.25em 0.4em;
+    border-radius: 50rem;
+    border: 2px solid #ffffff;
+}
+
+/* Nút User Avatar & Profile */
+.profile-btn {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.profile-btn:hover {
+    background-color: #f1f3f4;
+}
+
+.user-info {
+    display: none;
+    flex-direction: column;
+    text-align: right;
+    line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+    .user-info {
+        display: flex;
+    }
+}
+
+.user-name {
+    font-weight: 700;
+    color: #212529;
+    font-size: 0.95rem;
+}
+
+.user-role {
+    color: #6c757d;
+    font-size: 0.75rem;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+
+
+/* ==========================================================================
+   4. BẢNG POPUP KHUNG BỌC CHUNG (Base Dropdown Panel)
+   ========================================================================== */
+.dropdown-panel {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+    border: 1px solid #e9ecef;
+    z-index: 1050;
+}
+
+
+/* ==========================================================================
+   5. POPUP THÔNG BÁO (Notification Dropdown & Item Styles)
+   ========================================================================== */
+.noti-dropdown {
+    width: 380px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.panel-header {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 700;
+    color: #212529;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #ffffff;
+}
+
+.panel-header-badge {
+    background-color: #E31837;
+    color: #ffffff;
+    font-size: 0.72rem;
+    padding: 0.15em 0.55em;
+    border-radius: 50rem;
+    font-weight: 600;
+}
+
+.noti-list {
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+.noti-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.noti-list::-webkit-scrollbar-thumb {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+}
+
+/* Chi tiết 4 phần từng dòng thông báo */
+.noti-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid #f1f3f4;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.noti-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #E31837;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.95rem;
+    margin-top: 2px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.noti-content {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.noti-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.noti-title {
+    font-weight: 700;
+    color: #212529;
+    font-size: 0.88rem;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.noti-time {
+    color: #8c98a4;
+    font-size: 0.72rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.noti-desc {
+    color: #495057;
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Hover kiểu ViettelPost */
+.noti-item:hover {
+    background-color: #E31837;
+}
+
+.noti-item:hover .noti-title,
+.noti-item:hover .noti-desc,
+.noti-item:hover .noti-time {
+    color: #ffffff !important;
+}
+
+.noti-item:hover .noti-icon-wrap {
+    background-color: #ffffff;
+    color: #E31837;
+}
+
+/* Footer Popup */
+.panel-footer {
+    padding: 0.65rem;
+    text-align: center;
+    background-color: #ffffff;
+    border-top: 1px solid #e9ecef;
+}
+
+.panel-footer-btn {
+    display: inline-block;
+    color: #E31837;
+    text-decoration: none !important;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.35rem 1rem;
+    border: 1px solid #E31837;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.panel-footer-btn:hover {
+    background-color: #E31837;
+    color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   6. POPUP MENU CÁ NHÂN (Profile & Admin Menu Dropdown)
+   ========================================================================== */
+.profile-dropdown {
+    min-width: 200px;
+    padding: 0.5rem 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.65rem 1rem;
+    color: #495057;
+    text-decoration: none !important;
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-item i {
+    font-size: 0.95rem;
+    color: #6c757d;
+    transition: color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #fff5f5;
+    color: #E31837 !important;
+}
+
+.dropdown-item:hover i {
+    color: #E31837;
+}
+
+.dropdown-divider {
+    height: 0;
+    margin: 0.4rem 0;
+    overflow: hidden;
+    border-top: 1px solid #e9ecef;
+}
+
+
+/* ==========================================================================
+   7. GIAO DIỆN DI ĐỘNG (Mobile Responsive & Overlay)
+   ========================================================================== */
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1025;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -250px;
+    }
+
+    .layout-wrapper.menu-open .sidebar {
+        left: 0;
+    }
+}

@@ -1,0 +1,167 @@
+/* Fahasa Color Palette: Red #C92127, Bg #F0F2F5 */
+
+/*Cấu trúc responsive*/
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #F0F2F5;
+    padding: 1.5rem;
+}
+
+.login-wrapper .login-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 2.5rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.login-wrapper .login-card .login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-wrapper .login-card .login-header .brand-title {
+    color: #C92127;
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+}
+
+.login-wrapper .login-card .login-header .subtitle {
+    color: #666666;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.login-wrapper .login-card .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.login-wrapper .login-card .form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 0.5rem;
+}
+
+.login-wrapper .login-card .form-group .form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-wrapper .login-card .form-group .form-control:focus {
+    outline: none;
+    border-color: #C92127;
+    box-shadow: 0 0 0 3px rgba(201, 33, 39, 0.12);
+}
+
+.login-wrapper .login-card .form-group .validation-message {
+    color: #DC2626;
+    font-size: 0.8rem;
+    margin-top: 0.35rem;
+    display: block;
+}
+
+.login-wrapper .login-card .alert-danger {
+    background-color: #FEF2F2;
+    border: 1px solid #FCA5A5;
+    color: #DC2626;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+.login-wrapper .login-card .btn-login {
+    width: 100%;
+    padding: 0.85rem;
+    background-color: #C92127;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.login-wrapper .login-card .btn-login:hover:not(:disabled) {
+    background-color: #A1191E;
+}
+
+.login-wrapper .login-card .btn-login:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.login-wrapper .login-card .btn-login .spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #ffffff;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    animation: rotation 1s linear infinite;
+}
+
+.form-remember {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+}
+
+.form-remember label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    margin: 0;
+}
+
+.form-remember input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: #C92127;
+    margin: 0;
+}
+
+.form-remember .forgot {
+    font-weight: 600;
+    color: #C92127;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.form-remember .forgot:hover {
+    color: #A1191E;
+    text-decoration: underline;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

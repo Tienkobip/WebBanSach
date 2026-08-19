@@ -1,8 +1,12 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.DataProtection;
+using WebApp.Admin.Auth;
 using WebApp.Admin.Components;
 using WebApp.Admin.Middlewares;
+using WebApp.Admin.Services.Implementations;
+using WebApp.Admin.Services.Interfaces;
 using WebApp.Admin.Utilities;
 using WebApp.Shared;
 
@@ -63,6 +67,8 @@ builder.Services.AddHttpClient("ApiClient", client =>
 .AddHttpMessageHandler<CookieHandler>();
 
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("ApiClient"));
+builder.Services.AddScoped<IAuthClientService, AuthClientService>();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<AssemblyMarker>(lifetime: ServiceLifetime.Singleton);
 

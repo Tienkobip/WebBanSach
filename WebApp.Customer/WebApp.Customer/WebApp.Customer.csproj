@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Media.Models\WebApp.Shared.csproj" />
     <ProjectReference Include="..\..\WebApp.Shared\WebApp.Shared.csproj" />
     <ProjectReference Include="..\WebApp.Customer.Client\WebApp.Customer.Client.csproj" />
     <PackageReference Include="FluentValidation" Version="12.1.1" />

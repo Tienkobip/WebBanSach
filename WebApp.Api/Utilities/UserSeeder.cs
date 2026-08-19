@@ -11,18 +11,18 @@ namespace WebApp.Api.Utilities
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
 
-            var email = "lsluongtranduy@gmail.com";
+            var email = "jackacevn@gmail.com";
             var newUser = User.CreateCustomer(
                 email,
-                fullName: "Trần Duy Long",
-                phoneNumber: "0358764855"
+                fullName: "Nguyễn Việt Tiến",
+                phoneNumber: "0896699703"
             );
 
             newUser.NormalizedUserName = email.ToUpper();
             newUser.NormalizedEmail = email.ToUpper();
             newUser.EmailConfirmed = true;
             newUser.PhoneNumberConfirmed = true;
-            newUser.UpdateProfile("Trần Duy Long", "TP. Hồ Chí Minh", new DateTime(2005, 10, 19));
+            newUser.UpdateProfile("Nguyễn Việt Tiến", "Gia Lai", new DateTime(2005, 12, 08));
 
             var rawPassword = "12345";
             var result = await userManager.CreateAsync(newUser, rawPassword);
