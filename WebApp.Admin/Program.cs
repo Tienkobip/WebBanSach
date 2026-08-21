@@ -2,6 +2,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 using WebApp.Admin.Auth;
 using WebApp.Admin.Components;
 using WebApp.Admin.Middlewares;
@@ -15,6 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddControllers();
 
 // TODO: CẦN CHUYỂN SANG X509Certificate ĐỂ MÃ HÓA COOKIE PHÙ HỢP TẤT CẢ HỆ ĐIỀU HÀNH
 var keysPath = builder.Configuration["DataProtection:KeysPath"]
@@ -38,8 +41,8 @@ if (OperatingSystem.IsWindows())
 }
 
 // Đăng ký Authentication Cookie cho Blazor Server
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
+    .AddCookie(IdentityConstants.ApplicationScheme, options =>
     {
         options.Cookie.Name = ".WebBanSach.Auth";
         options.Cookie.HttpOnly = true;
@@ -48,6 +51,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
         options.ExpireTimeSpan = TimeSpan.FromDays(7);
         options.SlidingExpiration = true;
+
+        options.LoginPath = "/management/login";
+        options.AccessDeniedPath = "/management/login";
     });
 
 builder.Services.AddAuthorizationCore();
@@ -68,6 +74,7 @@ builder.Services.AddHttpClient("ApiClient", client =>
 
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("ApiClient"));
 builder.Services.AddScoped<IAuthClientService, AuthClientService>();
+builder.Services.AddScoped<IUserClientService, UserClientService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<AssemblyMarker>(lifetime: ServiceLifetime.Singleton);
@@ -80,8 +87,11 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     app.UseHsts();
 }
-app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
+
 app.UseHttpsRedirection();
+// Dù NotFound.razor đã xóa, dòng này vẫn có tác dụng
+// vì Blazor Router sẽ bắt /not-found bằng thẻ <NotFound> trong Routes.razor
+app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -94,6 +104,6 @@ app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
-
+app.MapControllers();
 app.Run();
 

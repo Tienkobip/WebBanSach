@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using WebApp.Admin.Services.Interfaces;
+using WebApp.Admin.Utilities;
 using WebApp.Shared.Dtos.Common;
 
 namespace WebApp.Admin.Auth
@@ -41,7 +43,7 @@ namespace WebApp.Admin.Auth
                 }
             }
 
-            var identity = new ClaimsIdentity(claims, "CookieAuth");
+            var identity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme);
             var userPrincipal = new ClaimsPrincipal(identity);
 
             return new AuthenticationState(userPrincipal);
@@ -56,7 +58,8 @@ namespace WebApp.Admin.Auth
             {
                 new Claim(ClaimTypes.NameIdentifier, userDto.UserId ?? ""),
                 new Claim(ClaimTypes.Name, userDto.FullName ?? ""),
-                new Claim(ClaimTypes.Email, userDto.Email ?? "")
+                new Claim(ClaimTypes.Email, userDto.Email ?? ""),
+                new Claim("AvatarUrl", userDto.AvatarUrl ?? "")
             };
 
             if (userDto.Roles != null)
@@ -67,7 +70,7 @@ namespace WebApp.Admin.Auth
                 }
             }
 
-            var identity = new ClaimsIdentity(claims, "CookieAuth");
+            var identity = new ClaimsIdentity(claims, IdentityConstants.ApplicationScheme);
             var userPrincipal = new ClaimsPrincipal(identity);
 
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(userPrincipal)));

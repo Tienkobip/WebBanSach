@@ -108,7 +108,7 @@ namespace WebApp.Api.Services.Implementations
             var roles = (await _userManager.GetRolesAsync(user)).ToList();
             var authResponse = new AuthResponseDto(
                 UserId: user.Id,
-                FullName: user.UserName,
+                FullName: user.FullName,
                 Email: user.Email,
                 AvatarUrl: user.AvatarUrl,
                 Roles: roles

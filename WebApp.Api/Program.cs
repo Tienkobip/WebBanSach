@@ -117,6 +117,7 @@ builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 // Auth Services
 builder.Services.AddScoped<ICustomerAuthService, CustomerAuthService>();
 builder.Services.AddScoped<IAdminAuthService, AdminAuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 // Thêm Hub để cập nhập các update từ Admin
@@ -139,6 +140,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowBlazorApps");
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();

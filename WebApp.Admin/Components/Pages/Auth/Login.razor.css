@@ -7,7 +7,7 @@
     justify-content: center;
     min-height: 100vh;
     background-color: #F0F2F5;
-    padding: 1.5rem;
+    width: 100%
 }
 
 .login-wrapper .login-card {
@@ -59,6 +59,36 @@
     font-size: 0.95rem;
     box-sizing: border-box;
     transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+::deep .input-password-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+::deep .input-password-group .input-control {
+    padding-right: 42px;
+}
+
+::deep .toggle-pwd-btn {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+::deep .toggle-pwd-btn:hover {
+    color: #374151;
 }
 
 .login-wrapper .login-card .form-group .form-control:focus {

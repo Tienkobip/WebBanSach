@@ -1,6 +1,47 @@
-﻿<Router AppAssembly="typeof(Program).Assembly" NotFoundPage="typeof(Pages.NotFound)">
-    <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
-        <FocusOnNavigate RouteData="routeData" Selector="h1" />
-    </Found>
-</Router>
+﻿@using Microsoft.AspNetCore.Components.Authorization
+
+ <CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(Program).Assembly">
+        <Found Context="routeData">
+            <!-- Đổi RouteView thành AuthorizeRouteView để bắt buộc kiểm tra Thẻ Admin -->
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.MainLayout)">
+                <NotAuthorized>
+                    @if (context.User.Identity?.IsAuthenticated == false)
+                    {
+                        <!-- 1. Chưa đăng nhập mà cố tình vào -> Đá ra trang /login -->
+                        <RedirectToLogin />
+                    }
+                    else
+                    {
+                        <!-- 2. Đã đăng nhập nhưng không đủ quyền (ví dụ: Nhân viên truy cập trang Sếp) -->
+                        <div class="p-5 text-center text-danger">
+                            <h3>⚠️ Bạn không có quyền hạn truy cập vào trang này!</h3>
+                        </div>
+                    }
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>404 - Không tìm thấy trang</PageTitle>
+            <AuthorizeView>
+                <Authorized>
+                    <!-- 1. Đã đăng nhập: Hiện thông báo 404 đẹp mắt bên trong MainLayout -->
+                    <LayoutView Layout="@typeof(Layout.MainLayout)">
+                        <div class="p-5 text-center">
+                            <h1 class="text-danger display-1 fw-bold">404</h1>
+                            <h3 class="mb-3">Rất tiếc, trang bạn tìm kiếm không tồn tại hoặc tính năng đang phát triển!</h3>
+                            <p class="text-muted">Vui lòng kiểm tra lại đường dẫn hoặc quay về trang chủ quản trị.</p>
+                            <a href="/management/dashboard" class="btn btn-primary mt-2">
+                                <i class="fa-solid fa-house me-2"></i> Quay về Bảng điều khiển
+                            </a>
+                        </div>
+                    </LayoutView>
+                </Authorized>
+                <NotAuthorized>
+                    <RedirectToLogin />
+                </NotAuthorized>
+            </AuthorizeView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>

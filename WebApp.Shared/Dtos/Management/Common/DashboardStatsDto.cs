@@ -1,6 +1,6 @@
 using WebApp.Shared.Dtos.CustomerDtos.Order;
 
-namespace WebApp.Shared.Dtos.AdminClient.SystemAdmin
+namespace WebApp.Shared.Dtos.Management.Common
 {
     // Component dùng: Dashboard.razor (Admin)
     public record DashboardStatsDto(

@@ -13,10 +13,6 @@ namespace WebApp.Api.Validations.User
                 .NotEmpty().WithMessage("Họ tên không được để trống")
                 .MaximumLength(150).WithMessage("Họ tên tối đa 150 ký tự");
 
-            RuleFor(x => x.PhoneNumber)
-                .Matches(@"^(0\d{9})$").WithMessage("Số điện thoại không hợp lệ (cần 10 chữ số, bắt đầu bằng 0)")
-                .When(x => !string.IsNullOrEmpty(x.PhoneNumber));
-
             RuleFor(x => x.DateOfBirth)
                 .LessThan(DateTime.Today).WithMessage("Ngày sinh không hợp lệ")
                 .When(x => x.DateOfBirth.HasValue);

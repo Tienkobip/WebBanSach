@@ -110,4 +110,9 @@ public partial class User : IdentityUser
         Address = address;
         DateOfBirth = dateOfBirth;
     }
+
+    public void UpdateAvatar(string? avatarUrl)
+    {
+        AvatarUrl = avatarUrl;
+    }
 }

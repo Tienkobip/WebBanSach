@@ -1,5 +1,6 @@
 ﻿using WebApp.Shared.Dtos.Common;
 using WebApp.Shared.Dtos.Management.Auth;
+using WebApp.Shared.Dtos.User;
 
 namespace WebApp.Admin.Services.Interfaces
 {

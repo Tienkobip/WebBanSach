@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WebApp.Api.Services.Interfaces;
@@ -78,7 +79,7 @@ namespace WebApp.Api.Controllers.Admin
         [Authorize]
         public async Task<ActionResult<ApiResponse<bool>>> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
             return Ok(ApiResponse<bool>.SuccessResult(true,"Đăng xuất thành công."));
         }
 

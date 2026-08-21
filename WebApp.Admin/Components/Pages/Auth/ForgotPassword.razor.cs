@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using WebApp.Shared.Dtos.Customer.Auth;
 using WebApp.Shared.Dtos.Management.Auth;
 
 namespace WebApp.Admin.Components.Pages.Auth
 {
+    [AllowAnonymous]
     public partial class ForgotPassword
     {
         private AdminResetPasswordDto forgotPasswordModel = new();

@@ -1,0 +1,381 @@
+/* ==========================================
+   1. BỐ CỤC CHÍNH (LAYOUT & SIDEBAR)
+   ========================================== */
+.profile-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.profile-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+.sidebar-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.menu-item:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+.menu-item.active {
+    background-color: #fef2f2;
+    color: #e31837;
+    font-weight: 600;
+}
+
+.profile-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.content-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   2. KHU VỰC AVATAR
+   ========================================== */
+.avatar-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #f3f4f6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.avatar-upload-btn {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 34px;
+    height: 34px;
+    background-color: #e31837;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.avatar-upload-btn:hover {
+    transform: scale(1.08);
+    background-color: #c8132e;
+}
+
+::deep .hidden-input {
+    display: none;
+}
+
+/* ==========================================
+   3. FORM & CÁC Ô NHẬP (INPUT COMPONENTS)
+   ========================================== */
+::deep .profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+::deep .form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    ::deep .form-row-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+::deep .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+::deep .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+::deep .input-control {
+    width: 100%;
+    height: 42px;
+    padding: 8px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1f2937;
+    background-color: #ffffff;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+::deep .input-control:focus {
+    border-color: #e31837;
+    box-shadow: 0 0 0 3px rgba(227, 24, 55, 0.1);
+}
+
+/* ==========================================
+   4. INPUT GROUP (GẮN NỐI BẮT CẶP INPUT + NÚT BẤM)
+   ========================================== */
+::deep .input-group {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    gap: 0 !important;
+}
+
+::deep .input-group .input-control {
+    flex: 1;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: none !important;
+}
+
+::deep .btn-action {
+    height: 42px;
+    padding: 0 18px;
+    background-color: #0066ff;
+    color: #ffffff;
+    border: 1px solid #0066ff;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+::deep .btn-action:hover {
+    background-color: #0052cc;
+    border-color: #0052cc;
+}
+
+/* ==========================================
+   5. HIỆU ỨNG READONLY / DISABLED (MỜ, CẤM CON TRỎ, KHÔNG ĐỔI MÀU HOVER)
+   ========================================== */
+::deep .input-readonly,
+::deep .input-control:disabled,
+::deep .input-control[readonly] {
+    background-color: #f3f4f6 !important;
+    color: #6b7280 !important;
+    border-color: #d1d5db !important;
+    cursor: not-allowed !important;
+    user-select: none;
+}
+
+::deep .input-readonly:hover,
+::deep .input-control:disabled:hover,
+::deep .input-control[readonly]:hover {
+    background-color: #f3f4f6 !important;
+    border-color: #d1d5db !important;
+    cursor: not-allowed !important;
+}
+
+/* ==========================================
+   6. NÚT LƯU FORM & CÁC TAB KHÁC
+   ========================================== */
+::deep .form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+::deep .btn-save {
+    min-width: 140px;
+    height: 44px;
+    padding: 0 32px;
+    background-color: #ffffff;
+    color: #e31837;
+    border: 2px solid #e31837;
+    border-radius: 22px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+::deep .btn-save:hover {
+    background-color: #e31837;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(227, 24, 55, 0.25);
+}
+
+::deep .btn-save:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* TAB ĐỔI MẬT KHẨU */
+::deep .password-form-wrapper {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+::deep .input-password-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+::deep .input-password-group .input-control {
+    padding-right: 42px;
+}
+
+::deep .toggle-pwd-btn {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+::deep .toggle-pwd-btn:hover {
+    color: #374151;
+}
+
+/* VALIDATION & ALERTS */
+::deep .validation-message {
+    color: #e31837;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+::deep .alert-msg {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+::deep .alert-error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+::deep .alert-success {
+    background-color: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+/* TAB XÁC MINH 2 BƯỚC (2FA) */
+.two-fa-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 32px 16px;
+}
+
+.two-fa-icon {
+    font-size: 54px;
+    color: #e31837;
+    margin-bottom: 16px;
+}
+
+.two-fa-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.two-fa-desc {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 24px;
+    max-width: 480px;
+}
+
+.two-fa-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.btn-2fa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border: 1px solid #e31837;
+    background: #ffffff;
+    color: #e31837;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: not-allowed;
+    opacity: 0.7;
+}

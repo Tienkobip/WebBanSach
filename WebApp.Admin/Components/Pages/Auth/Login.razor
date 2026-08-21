@@ -1,9 +1,12 @@
 ﻿@page "/management/login"
+@layout Layout.AuthLayout
+@using Microsoft.AspNetCore.Components.Authorization
 @using WebApp.Admin.Services.Interfaces
 @using WebApp.Admin.Validation
 
 @inject NavigationManager Navigation
 @inject IAuthClientService AuthService
+@inject AuthenticationStateProvider AuthStateProvider
 @inject IJSRuntime JSRuntime
 
 <div class="login-wrapper">
@@ -43,7 +46,12 @@
 
             <div class="form-group">
                 <label for="password">Mật khẩu</label>
-                <InputText id="password" type="password" class="form-control" @bind-Value="loginModel.Password" placeholder="••••••••" />
+                <div class="input-password-group">
+                    <InputText id="password" type="@(showPwd ? "text" : "password")" class="form-control input-control" @bind-Value="loginModel.Password" placeholder="••••••••" />
+                    <button type="button" class="toggle-pwd-btn" @onclick="TogglePwd">
+                        <i class="fa-solid @(showPwd ? "fa-eye" : "fa-eye-slash")"></i>
+                    </button>
+                </div>
                 <ValidationMessage For="@(() => loginModel.Password)" class="validation-message" />
             </div>
 
@@ -66,5 +74,10 @@
                 }
             </button>
         </EditForm>
+
+        <form id="nativeLoginForm" style="display:none;">
+            <input type="hidden" name="UsernameOrEmail" value="@loginModel.UsernameOrEmail" />
+            <input type="hidden" name="Password" value="@loginModel.Password" />
+        </form>
     </div>
 </div>
